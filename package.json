@@ -1,6 +1,24 @@
 {
+  "name": "auth",
+  "description": "Standard Auth Program for all personal projects",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wuxxy/auth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wuxxy/auth/issues"
+  },
   "devDependencies": {
     "@types/fastify-cors": "^2.1.0",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.14.6",
     "@types/react": "18.0.28",
     "ts-node": "^10.9.1",
@@ -9,15 +27,18 @@
   "dependencies": {
     "@fastify/cors": "^8.2.0",
     "@fastify/formbody": "^7.4.0",
+    "@fastify/middie": "^8.1.0",
     "@fastify/rate-limit": "^8.0.0",
     "@fastify/static": "^6.9.0",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "fastify": "^4.14.0",
+    "jsonwebtoken": "^9.0.0",
     "pg": "^8.9.0",
     "reflect-metadata": "^0.1.13",
     "tailwind-lite": "^0.0.3",
     "ts-loader": "^9.4.2",
     "typeorm": "^0.3.12"
-  }
+  },
+  "homepage": "https://github.com/wuxxy/auth#readme"
 }

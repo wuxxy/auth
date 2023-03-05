@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;400;500;700&display=swap');
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Roboto Mono', monospace;
+  background-color: #1b1220;
+  /* @apply bg-gray-900; */
+}
+.wrapper{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.content{
+  @apply bg-[#1b121e] p-2 lg:w-7/12 ;
+}
+.App{
+  height: 80vh;
+  @apply flex flex-row shadow-md shadow-gray-900 items-center justify-center ring-1 ring-[#d0a5bd] md:w-[50%];
+}
+.tips{
+  background-size: cover;
+  background-position: center;
+  @apply w-5/12 h-full lg:flex hidden bg-[#d0a5bd] flex-col items-center justify-center text-center text-base p-4;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

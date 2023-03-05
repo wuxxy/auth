@@ -1,6 +1,14 @@
 import querystring from "querystring";
 import { FastifyReply } from "fastify";
-export default (stack: any, res: FastifyReply, status = 500) => {
+export default (stack: any, res: FastifyReply | any, status = 500) => {
+  if (!res.response) {
+    return res.status(status).send({
+      message: "An error occured",
+      stack,
+      status,
+      query: res.request.query,
+    });
+  }
   let redirect = res.request.query["redirect"];
 
   if (redirect) {

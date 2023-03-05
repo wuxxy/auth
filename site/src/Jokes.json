@@ -1,0 +1,16 @@
+[
+  { "tip": "Forgot your password? Don't worry, we forgot it too!" },
+  { "tip": "Can't remember your username? Try 'admin'. It's always admin." },
+  {
+    "tip": "If at first you don't succeed, try re-entering your password another 10 times. It might work!"
+  },
+  {
+    "tip": "Why login when you can just stay logged out and live life on the edge?"
+  },
+  {
+    "tip": "Don't like your password? Just add a '1' to the end. It's like a free security upgrade!"
+  },
+  {
+    "tip": "If you can't figure out your password, just ask your pet. They probably know it better than you do."
+  }
+]
