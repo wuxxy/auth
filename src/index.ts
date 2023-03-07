@@ -7,11 +7,11 @@ import querystring from "querystring";
 import path from "path";
 import UserAPI from "./controllers/UserAPI";
 import Middleware from "@fastify/middie";
-import { AppDataSource } from "./database";
-import { User } from "./entity/User";
+import { AppDataSource, IntegrationsDB } from "./database";
 dotenv.config();
 
 import Auth from "./controllers/User";
+let integrations;
 const server = fastify({
   logger: true,
   querystringParser: (str) => querystring.parse(str.toLowerCase()),
@@ -29,7 +29,9 @@ server.register(UserAPI, { prefix: "/api" });
 server.get("/ping", async (request: FastifyRequest, reply: FastifyReply) => {
   return "pong\n";
 });
-
+server.get("/integrations", (_, res) => {
+  res.send(integrations);
+});
 server.register(staticServe, {
   root: path.join(__dirname, "public"),
   prefix: "/", // optional: default '/'
@@ -44,6 +46,7 @@ AppDataSource.initialize()
     console.log("Loading users from the database...");
     // const users = await AppDataSource.manager.find(User);
     // console.log("Loaded users: ", users);
+    integrations = await IntegrationsDB.find();
     server.listen(
       { port: parseInt(process.env.PORT || "8080") },
       (err, address) => {

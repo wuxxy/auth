@@ -19,10 +19,12 @@ export default async (req, res) => {
   if (passwordStrength < 3) return err("Invalid Password", res);
   const fetchUser = await UserDB.findOneOrFail({ where: { email } });
   if (!fetchUser) return err("User could not be found", res);
+  console.log("test \n\n");
   if (await checkPassword(password, fetchUser.password)) {
     const login = new Token();
     const tokenPair = await login.generate(fetchUser.id);
     if (tokenPair[2] == -2) return err("Too many sessions", res);
+
     res.send({
       user: {
         id: fetchUser.id,
@@ -33,5 +35,7 @@ export default async (req, res) => {
       access: tokenPair[0],
       refresh: tokenPair[1],
     });
+  } else {
+    err("Incorrect password", res)
   }
 };

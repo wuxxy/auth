@@ -1,9 +1,13 @@
+import { Integrations } from "./Integrations";
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 
 @Entity()
@@ -33,4 +37,8 @@ export class User {
 
   @Column({ unique: true, nullable: true })
   phone: string;
+
+  @ManyToMany(() => Integrations)
+  @JoinTable()
+  integrations: Integrations[];
 }

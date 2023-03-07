@@ -32,6 +32,7 @@ export default async (req: RegisterBody, res: FastifyReply) => {
     user.username = username;
     user.password = await hashPassword(password);
     user.discriminator = await createDiscriminator(password);
+    user.integrations = [];
     await AppDataSource.manager.save(user);
     res.send({
       message: "User has been created.",

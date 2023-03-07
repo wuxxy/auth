@@ -23,8 +23,18 @@ export default class Token {
     try {
       let user = await this.db.manager.findOneOrFail(User, {
         where: { id: this.userId },
-        select: ["created_at", "discriminator", "username", "id", "email"],
+        select: [
+          "created_at",
+          "discriminator",
+          "username",
+          "id",
+          "email",
+          "integrations",
+        ],
         cache: true,
+        relations: {
+          integrations: true,
+        },
       });
       if (user.id !== this.userId) return null;
       return user;

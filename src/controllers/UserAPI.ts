@@ -3,9 +3,11 @@ import { DoneFuncWithErrOrRes, FastifyInstance } from "fastify";
 import RegisterController from "./Register.controller";
 import Token from "../utils/Token";
 import err from "../utils/err";
-import { SessionDB } from "../database";
+import { SessionDB, IntegrationsDB, UserDB, AppDataSource } from "../database";
 import { MoreThan } from "typeorm";
 import isAuthorized from "./Authorizer.md";
+import { Integrations } from "../entity/Integrations";
+import { User } from "../entity/User";
 
 export default (fastify: FastifyInstance, opts, done: DoneFuncWithErrOrRes) => {
   fastify.register(rateLimit, {
@@ -39,6 +41,44 @@ export default (fastify: FastifyInstance, opts, done: DoneFuncWithErrOrRes) => {
       return err("Invalid Session", res);
     } catch (error) {
       return err("Failed to logout from all sessions", res);
+    }
+  });
+  fastify.post("/connect", async (req, res) => {
+    const ints = await IntegrationsDB.findOne({
+      where: { id: req.body["int"] },
+    });
+    if (ints) {
+      const user = await UserDB.findOne({
+        where: { id: req.raw["user"].id },
+        relations: {
+          integrations: true,
+        },
+      });
+      user.integrations.push(ints);
+      await UserDB.save(user);
+      res.send(user.integrations);
+    }
+  });
+  // fastify.post("/")
+  fastify.post("/disconnect", async (req, res) => {
+    const ints = await IntegrationsDB.findOne({
+      where: { id: req.body["int"] },
+    });
+    if (ints) {
+      console.log("test \n\n");
+
+      await AppDataSource.createQueryBuilder()
+        .relation(User, "integrations")
+        .of(req.raw["user"].id)
+        .remove(ints);
+      const user = await UserDB.findOne({
+        where: { id: req.raw["user"].id },
+        relations: {
+          integrations: true,
+        },
+      });
+      await UserDB.save(user);
+      res.send(user.integrations);
     }
   });
   done();

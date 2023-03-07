@@ -4,6 +4,7 @@ import { User } from "./entity/User";
 import { Sessions } from "./entity/Sessions";
 // dbUsername dbHost dbPass dbName
 import dotenv from "dotenv";
+import { Integrations } from "./entity/Integrations";
 dotenv.config();
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -14,9 +15,10 @@ export const AppDataSource = new DataSource({
   database: "central-auth",
   synchronize: true,
   logging: true,
-  entities: [User, Sessions],
+  entities: [User, Sessions, Integrations],
   migrations: [],
   subscribers: [],
 });
 export const UserDB = AppDataSource.getRepository(User);
 export const SessionDB = AppDataSource.getRepository(Sessions);
+export const IntegrationsDB = AppDataSource.getRepository(Integrations);

@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import ReactLoading from "react-loading";
 import jokes from "./Jokes.json";
 import { useNavigate } from "react-router-dom";
+import xios from "./xios";
 const joke = jokes[Math.floor(Math.random() * jokes.length)].tip;
 const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -13,8 +14,8 @@ const Login = () => {
   function Login(event: any) {
     event.preventDefault();
     setLoading(true);
-    axios
-      .post("http://localhost:8080/auth/login", {
+    xios
+      .post("/auth/login", {
         email,
         password,
       })
@@ -30,6 +31,8 @@ const Login = () => {
         });
       })
       .catch((e) => {
+        console.log(e);
+
         setLoading(false);
       });
   }

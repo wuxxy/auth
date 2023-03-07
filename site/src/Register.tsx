@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
 import jokes from "./RegisterJokes.json";
+import xios from "./xios";
 const joke = jokes[Math.floor(Math.random() * jokes.length)];
 const Register = () => {
   const [username, setUsername] = React.useState("");
@@ -14,8 +15,8 @@ const Register = () => {
   function Register(event: any) {
     event.preventDefault();
     setLoading(true);
-    axios
-      .post("http://localhost:8080/auth/register", {
+    xios
+      .post("/auth/register", {
         email,
         username,
         password,
